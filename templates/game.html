@@ -2,17 +2,30 @@
 
 {% block content %}
 <main>
-{% for q in questions %}
-    <h6>{{ q['question'] | unescape }}</h6>
+
+
     <form action="{{ url_for('game') }}" method="POST">
-        <label for="true">True</label>
-        <input type="radio" id="true" name="answer" value="True">
-        <input type="radio" id="false" name="answer" value="False">
-        <label for="false">False</label>
-        <button type="submit">Ok</button>
+    <fieldset>
+        {% for q in questions %}
+        <div>
+            <h1></h1>
+          <legend>{{ q['question'] | unescape }}</legend>
+          <div>
+            <input type="radio" id="true" name="answer{{loop.index0}}" value="True" />
+            <label for="true">True</label>
+          </div>
+          <div>
+            <input type="radio" id="false" name="answer{{loop.index0}}" value="False" />
+            <label for="false">False</label>
+          </div>
+        </div>
+        {% endfor %}
+
+        <div>
+        <button type="submit">SUBMIT ANSWERS</button>
+        </div>
+    </fieldset>
     </form>
-    <br>
-{% endfor %}
 </main>
 {% include 'footer.html' %}
 {% endblock %}

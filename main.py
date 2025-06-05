@@ -12,8 +12,21 @@ import html
 import requests
 #https://opentdb.com/api.php?amount=10&category=10&difficulty=medium&type=multiple
 
+def check_answers(user_answers,correct_answers):
+    user_correct = 0
+    user_average_score = 0
+    answered_questions = 0
+    user_false = 0
+    for i in range(len(correct_answers)):
+        if user_answers[i] == correct_answers[i]:
+            user_correct += 1
+    answered_questions = len(user_answers) # Doesnt matter if it is correct or user answers cuz we take the length.
+    user_average_score = (user_correct/answered_questions) * 100
+    user_false = answered_questions - user_correct
+    print(f"ANSWERED QUESTIONS:{answered_questions}\nAVERAGE SCORE: {user_average_score}%\n CORRECT ANSWERS:{user_correct}")
+
 def generate_questions():
-    response = requests.get("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=boolean")
+    response = requests.get("https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=boolean")
     if response.status_code == 200:
         questions = response.json()["results"]
         #correct_answer = bool(response.json()["results"][0]["correct_answer"])
@@ -37,9 +50,14 @@ def game():
     quiz = generate_questions()
     if quiz["status"] == "success":
         if request.method == 'POST':
-            print(request.form.get('answer'))
+            user_answers = [request.form.get(f'answer{i}') for i in range(len(quiz["questions"]))]
+            correct_answers = [x["correct_answer"] for x in quiz["questions"]]
+            print(f"User Answers: {user_answers}")
+            print(f"Correct Answers: {correct_answers}")
+            print(check_answers(user_answers,correct_answers))
+            return redirect(url_for('home'))
         return render_template("game.html",questions=quiz["questions"])
     return render_template("error.html",error=quiz["error"])
 
 if __name__ == "__main__":
-    app.run(debug=True,port=5001)
+    app.run(debug=True,port=5009)
