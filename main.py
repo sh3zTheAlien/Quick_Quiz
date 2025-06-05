@@ -8,26 +8,38 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
+import html
 import requests
 #https://opentdb.com/api.php?amount=10&category=10&difficulty=medium&type=multiple
 
+def generate_questions():
+    response = requests.get("https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=boolean")
+    if response.status_code == 200:
+        questions = response.json()["results"]
+        #correct_answer = bool(response.json()["results"][0]["correct_answer"])
+        return {"status":"success","questions":questions}
+    return {"status":"fail","error":f"STATUS:{response.status_code} JSON:{response.json()}"}
 
-def generate_question():
-    response = requests.get("https://opentdb.com/api.php?amount=1&category=9&difficulty=medium&type=boolean").json()
-    question = response["results"][0]["question"]
-    correct_answer = response["results"][0]["correct_answer"]
-    return {"question":question,"answer":correct_answer}
+def unescape_html(text:str):
+    return html.unescape(text)
 
+#FLASK QUESTIONS
 app = Flask(__name__)
+app.jinja_env.filters['unescape'] = unescape_html
+
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/quiz_game")
-def game():
-    quiz = generate_question()
-    return render_template("game.html",question=quiz["question"])
 
+@app.route("/quiz_game",methods=['GET','POST'])
+def game():
+    quiz = generate_questions()
+    if quiz["status"] == "success":
+        if request.method == 'POST':
+            print(request.form.get('answer'))
+        return render_template("game.html",questions=quiz["questions"])
+    return render_template("error.html",error=quiz["error"])
 
 if __name__ == "__main__":
     app.run(debug=True,port=5001)

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% include 'header.html' %}
+<main>
 <div class="hero-section d-flex align-items-center justify-content-center">
   <div class="container text-center">
     <div class="hero-content">
@@ -9,4 +11,6 @@
     </div>
   </div>
 </div>
+</main>
+{% include 'footer.html' %}
 {% endblock %}

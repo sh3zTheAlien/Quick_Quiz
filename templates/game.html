@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ question }}</h2>
-<input type="checkbox" id="first" name="vehicle1" value="True">
-<label for="first">True</label><br>
-<input type="checkbox" id="second" name="vehicle2" value="False">
-<label for="second">False</label><br>
+<main>
+{% for q in questions %}
+    <h6>{{ q['question'] | unescape }}</h6>
+    <form action="{{ url_for('game') }}" method="POST">
+        <label for="true">True</label>
+        <input type="radio" id="true" name="answer" value="True">
+        <input type="radio" id="false" name="answer" value="False">
+        <label for="false">False</label>
+        <button type="submit">Ok</button>
+    </form>
+    <br>
+{% endfor %}
+</main>
+{% include 'footer.html' %}
 {% endblock %}
