@@ -33,7 +33,6 @@ def game():
             user_answers = [request.form.get(f'answer{i}') for i in range(len(quiz["questions"]))]
             correct_answers = [x["correct_answer"] for x in quiz["questions"]]
             print(quiz_score.check_answers(user_answers,correct_answers))
-            #check_answers(user_answers,correct_answers)
             return redirect(url_for('home'))
         return render_template("game.html",questions=quiz["questions"])
     return render_template("error.html",error=quiz["error"])
