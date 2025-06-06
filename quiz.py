@@ -18,6 +18,7 @@ class Questions:
             return {"status":"success","questions":response.json()["results"]}
         return {"status": "fail", "error": f"STATUS:{response.status_code} JSON:{response.json()}"}
 
+
 class Score:
 
     def __init__(self):
