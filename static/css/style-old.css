@@ -257,3 +257,144 @@ main {
     margin-bottom: 1rem;
   }
 }
+
+
+
+
+
+
+
+
+
+
+@font-face {
+          font-family: 'Owned';
+          src: url('../fonts/Owned Regular.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px rgba(255,255,255,0.1);
+    overflow: hidden;
+    border: 2px solid #333333;
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border-top: 2px solid #000000;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+}
+
+h1 {
+    text-align: center;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    color: white;
+    margin: 0;
+    padding: 20px;
+    font-size: 2rem;
+    font-family: 'YourCustomFont', Arial, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-family: 'YourCustomFont', Arial, sans-serif;
+}
+
+th {
+    background-color: #000000;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: 'YourCustomFont', Arial, sans-serif;
+}
+
+th:first-child {
+    text-align: center;
+    width: 80px;
+}
+
+th:nth-child(2) {
+    width: 60%;
+}
+
+th:last-child {
+    text-align: center;
+    width: 100px;
+}
+
+td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #cccccc;
+    color: #000000;
+    font-family: 'YourCustomFont', Arial, sans-serif;
+}
+
+td:first-child {
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+}
+
+td:last-child {
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+.rank-1 td:first-child {
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.rank-2 td:first-child {
+    color: #333333;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.rank-3 td:first-child {
+    color: #666666;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
